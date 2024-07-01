@@ -1,0 +1,73 @@
+Low-Level Design (LLD) for Microservices Project
+Overview
+This project involves creating a microservices architecture with three main services: User Service, Discussion Service, and Comment & Like Service. Each service will have its own responsibilities, and they will communicate with each other as needed. The architecture will include REST APIs, database interactions, and inter-service communication.
+
+Microservices Overview
+User Service
+Discussion Service
+Comment & Like Service
+User Service
+Responsibilities:
+
+Manage user data
+User login/signup
+Provide user details to other services
+Entities:
+
+User: Represents a user in the system
+APIs:
+
+POST /api/users/signup: Create a new user
+POST /api/users/login: User login
+PUT /api/users/{id}: Update user details
+DELETE /api/users/{id}: Delete user
+GET /api/users: Get list of all users
+GET /api/users/search: Search users by name
+POST /api/users/follow: Follow a user
+Database Tables:
+
+users
+id (UUID, PK)
+name (String)
+mobile (String, unique)
+email (String, unique)
+password (String)
+followers (List<UUID>)
+Class Diagram:
+
+plaintext
+Copy code
+UserService
+|
+|-- UserController
+|   |-- POST /api/users/signup
+|   |-- POST /api/users/login
+|   |-- PUT /api/users/{id}
+|   |-- DELETE /api/users/{id}
+|   |-- GET /api/users
+|   |-- GET /api/users/search
+|   |-- POST /api/users/follow
+|
+|-- UserService
+|   |-- createUser(User user)
+|   |-- loginUser(String email, String password)
+|   |-- updateUser(UUID id, User user)
+|   |-- deleteUser(UUID id)
+|   |-- getAllUsers()
+|   |-- searchUsers(String name)
+|   |-- followUser(UUID userId, UUID followUserId)
+|
+|-- UserRepository
+|   |-- findById(UUID id)
+|   |-- findByEmail(String email)
+|   |-- findByName(String name)
+|   |-- save(User user)
+|   |-- deleteById(UUID id)
+|
+|-- User
+|   |-- UUID id
+|   |-- String name
+|   |-- String mobile
+|   |-- String email
+|   |-- String password
+|   |-- List<UUID> followers
